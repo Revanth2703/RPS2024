@@ -1,8 +1,9 @@
-const pS = "scissors";
+let pS;
 let cS = getComputerChoice();
 let tie = 0;
 let comp = 0;
 let player = 0;
+
 
 //Computer choice
 
@@ -16,6 +17,47 @@ function getComputerChoice() {
     return "scissors";
   }
 }
+
+
+const roc = document.querySelector("#rock");
+const pap = document.querySelector("#paper");
+const sci = document.querySelector("#scissor");
+const res = document.querySelector("#reset");
+
+const container = document.querySelector("#container")
+
+const winner = document.querySelector("#winner")
+
+
+roc.addEventListener('click',(event) => {
+    pS = "rock";
+    cS = getComputerChoice();
+    playRound(pS,cS);
+    
+});
+
+pap.addEventListener("click",()=>{
+  pS = "paper";
+  cS = getComputerChoice();
+  playRound(pS,cS);
+});
+
+
+sci.addEventListener("click",()=>{
+  pS = "scissor";
+  cS = getComputerChoice();
+  playRound(pS,cS);
+});
+
+res.addEventListener("click",()=>{
+  tie = 0;
+  comp = 0;
+  player = 0;
+  location.reload();
+})
+
+
+
 
 function playRound(pS,cS) {
   if (pS == "rock" && cS == "rock") {
@@ -37,25 +79,20 @@ function playRound(pS,cS) {
   } else {
       comp++;
   }
-}
-
-function playGame(){
-    for(let i = 0; i < 5; i++){ 
-        cS = getComputerChoice();
-        playRound(pS,cS);
-    }
+ 
+  if(player < 5 && comp < 5){
     if(player > comp){
-      console.log("Player is the winner. Player : "+ player + " comp : "+ comp + " tie : "+tie);
+      container.textContent="Player is the winner. Player : "+ player + " comp : "+ comp + " tie : "+tie;
     }else if(comp > player){
-      console.log("Comp is the winner. Player : "+ player + " comp : "+ comp + " tie : "+tie)
-    }else{
-      console.log("It's a tie.  Player : "+ player + " comp : "+ comp + " tie : "+tie)
+      container.textContent="Comp is the winner. Player : "+ player + " comp : "+ comp + " tie : "+tie;
+    }else if(tie > comp > player) {
+      container.textContent="It's a tie.  Player : "+ player + " comp : "+ comp + " tie : "+tie;
     }
+  }else{
+    winner.textContent = "The game is Over. The score is Player : " + player + " and Computer : "+ comp;
+
+  }
+
 }
-
-playGame()
-
-
-
 
 
